@@ -3,6 +3,7 @@ from blog import schemas
 from blog import models, database
 from sqlalchemy.orm import Session
 from typing import List
+from passlib.context import CryptContext
 
 app = FastAPI()
 
@@ -60,10 +61,14 @@ def get_all(id ,response: Response,db: Session = Depends(database.get_db)):
         # return {"details": f"Blog with id {id} not found"}
     return blogs
 
+# Password hashing context
+pwd_cxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 @app.post("/user")
 def get_user(request: schemas.User , db: Session = Depends(database.get_db)):
-    new_user = models.User(name = request.name , email = request.email , password = request.password)
+    hashed_passwoed = pwd_cxt.hash(request.password)
+    new_user = models.User(name = request.name , email = request.email , password = hashed_passwoed)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
