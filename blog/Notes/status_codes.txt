@@ -1,0 +1,19 @@
+200 - OK (Successful GET, PUT, or DELETE)
+
+201 - Created (Successful POST/Insert into Postgres)
+
+204 - No Content (Successful DELETE where no data is returned)
+
+400 - Bad Request (User sent data that Postgres cannot process)
+
+401 - Unauthorized (User is not logged in)
+
+403 - Forbidden (User logged in but doesn't have permission to delete/edit)
+
+404 - Not Found (The ID requested does not exist in the database)
+
+409 - Conflict (Duplicate entry, e.g., same email or unique title)
+
+422 - Unprocessable Entity (FastAPI validation failed—e.g., string sent instead of int)
+
+500 - Internal Server Error (Postgres connection failed or code crashed)
