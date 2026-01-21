@@ -1,7 +1,8 @@
 fastapi
 uvicorn[standard]
-# pydantic
-# sqlalchemy
+Optional
+pydantic
+sqlalchemy
 # databases
 # alembic
-# psycopg2-binary
+psycopg2-binary
