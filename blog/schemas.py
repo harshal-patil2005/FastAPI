@@ -12,4 +12,10 @@ class ShowBlog(Blog):
 class User(BaseModel):
     name: str
     email: str
-    password: str   
+    password: str 
+
+class ShowUser(BaseModel):  
+    name: str
+    email: str
+    class Config():   # to tell Pydantic that this model is compatible with ORM objects
+        from_attributes = True

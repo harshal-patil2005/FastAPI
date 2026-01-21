@@ -1,0 +1,9 @@
+Blogs: @app.post("/blog", tags=["Blogs"])
+
+Users: @app.post("/user", tags=["Users"])
+
+Authentication: @app.post("/login", tags=["Authentication"])
+
+Multiple Tags: tags=["Users", "Blogs"]
+
+
