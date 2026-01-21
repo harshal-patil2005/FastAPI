@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI , status , Response , HTTPException
 from blog import schemas
 from blog import models, database
 from sqlalchemy.orm import Session
-
+from typing import List
 
 app = FastAPI()
 
@@ -38,8 +38,8 @@ def update(id, request: schemas.Blog , db: Session = Depends(database.get_db)):
     db.commit()
     return "Updated Successfully"
 
-@app.get("/blog" )
-def get_all(db: Session = Depends(database.get_db)):
+@app.get("/blog" , response_model=List[schemas.ShowBlog])
+def get_all( response: Response,db: Session = Depends(database.get_db)):
     blogs = db.query(models.Blog).all()
     return blogs
 
@@ -49,7 +49,7 @@ def get_all(limit, db: Session = Depends(database.get_db)):
     blogs = db.query(models.Blog).limit(limit).all()
     return blogs
 
-@app.get("/blog/id/{id}" , status_code=200)
+@app.get("/blog/id/{id}" , status_code=200 , response_model = schemas.ShowBlog)
 def get_all(id ,response: Response,db: Session = Depends(database.get_db)):
     # .limit(limit) tells Postgres to stop after finding number limit rows
     blogs = db.query(models.Blog).filter(models.Blog.id == id).first()
@@ -61,8 +61,9 @@ def get_all(id ,response: Response,db: Session = Depends(database.get_db)):
     return blogs
 
 
-
-
+@app.post("/user")
+def get_user(request: schemas.User):
+    return request
 
 
 # @app.post("/blog")

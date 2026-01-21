@@ -1,0 +1,6 @@
+pydantic models called as schemas 
+used for defining request style
+
+thing exists in models.py called as models 
+
+
