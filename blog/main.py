@@ -62,8 +62,12 @@ def get_all(id ,response: Response,db: Session = Depends(database.get_db)):
 
 
 @app.post("/user")
-def get_user(request: schemas.User):
-    return request
+def get_user(request: schemas.User , db: Session = Depends(database.get_db)):
+    new_user = models.User(name = request.name , email = request.email , password = request.password)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
 
 
 # @app.post("/blog")
